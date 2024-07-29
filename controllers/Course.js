@@ -451,14 +451,17 @@ exports.deleteCourse = async (req, res) => {
     if (!course) {
       return res.status(404).json({ message: "Course not found" })
     }
+    
 
     // Unenroll students from the course
     const studentsEnrolled = course.studentsEnroled
-    for (const studentId of studentsEnrolled) {
-      await User.findByIdAndUpdate(studentId, {
-        $pull: { courses: courseId },
-      })
-    }
+    //console.log("I am here")
+    // for (const studentId of studentsEnrolled) {
+    //   await User.findByIdAndUpdate(studentId, {
+    //     $pull: { courses: courseId },
+    //   })
+    // }
+    
 
     // Delete sections and sub-sections
     const courseSections = course.courseContent
@@ -485,6 +488,7 @@ exports.deleteCourse = async (req, res) => {
     })
   } catch (error) {
     console.error(error)
+    //console.log(error)
     return res.status(500).json({
       success: false,
       message: "Server error",

@@ -18,7 +18,7 @@ exports.auth = async (req, res, next) => {
 		if (!token) {
 			return res.status(401).json({ success: false, message: `Token Missing` });
 		}
-
+		
 		try {
 			// Verifying the JWT using the secret key stored in environment variables
 			const decode = await jwt.verify(token, process.env.JWT_SECRET);
@@ -46,7 +46,7 @@ exports.auth = async (req, res, next) => {
 exports.isStudent = async (req, res, next) => {
 	try {
 		const userDetails = await User.findOne({ email: req.user.email });
-
+		
 		if (userDetails.accountType !== "Student") {
 			return res.status(401).json({
 				success: false,
